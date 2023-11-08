@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    mysql:
+      jdbc-url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+    click:
+      jdbc-url: jdbc:clickhouse://localhost:8123
+      password: ""
+      driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
+      username: default
+    psql:
+      jdbc-url: jdbc:postgresql://localhost:5432/postgres?serverTimezone=GMT%2B8&useSSL=false
+      username: postgres
+      password: mysecretpassword
+      driver-class-name: org.postgresql.Driver
+
+
+# 多数据源，这里配置没用，必须在每个数据源配置类里单独配置
+#mybatis:
+#  configuration:
+#    map-underscore-to-camel-case: true
+#  mapper-locations: classpath:mapper/*.xml
+
+
