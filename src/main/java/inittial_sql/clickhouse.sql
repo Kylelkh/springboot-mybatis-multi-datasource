@@ -24,3 +24,9 @@ VALUES (2, 'Alice', 30, {'key2': 'value2'});
 
 INSERT INTO your_table (id, name, age, data)
 VALUES (3, 'Bob', 35, {'key3': 'value3'});
+
+INSERT INTO your_table (id, name, age, data)
+VALUES (1, 'Kyle', 25, {'key1': 'value1', 'key2': '3', 'key3': 'value3'});
+
+INSERT INTO your_table (id, name, age, data)
+VALUES (5, 'Kyle', 25, {'key1': 'value1', 'key2': '4', 'key3': 'value3'});
