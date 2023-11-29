@@ -3,7 +3,11 @@ package boot;
 import boot.mapper.clickhouse.ClickhouseUserMapper;
 import boot.mapper.mysql.MysqlUserMapper;
 import boot.mapper.psql.PsqlUserMapper;
+import boot.model.KeyValue;
 import boot.model.User;
+import boot.model.YourTable;
+import java.util.Arrays;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -50,6 +54,24 @@ public class MainApplication {
     System.out.println("click inside");
     final User user = clickhouseUserMapper.selectUserById(1);
     return user;
+  }
+
+  @RequestMapping("/click-map")
+  public List<YourTable> clickMap() {
+    System.out.println("click map inside");
+    KeyValue keyValue = new KeyValue();
+    keyValue.setKey("key1");
+    keyValue.setOperator("eq");
+    keyValue.setValue("value1");
+
+    KeyValue keyValue1 = new KeyValue();
+    keyValue1.setKey("key2");
+    keyValue1.setOperator("gte");
+    keyValue1.setValue("3");
+
+    List<KeyValue> list = Arrays.asList(keyValue, keyValue1);
+
+    return clickhouseUserMapper.findByMapConditions(list);
   }
 
   public static void main(String[] args) {

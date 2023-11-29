@@ -7,4 +7,25 @@
         from user
         where user_id = #{id}
     </select>
+
+    <select id="findByMapConditions" resultType="boot.model.YourTable">
+        SELECT id, name, age, data FROM your_table
+        <where>
+        <foreach collection="conditions" item="item" separator="AND ">
+            <choose>
+                <when test="item.operator == 'eq'">data['${item.key}']  = '${item.value}' </when>
+                <when test="item.operator == 'neq'">data['${item.key}']  != '${item.value}' </when>
+                <when test="item.operator == 'like'">data['${item.key}'] LIKE %'${item.value}'% </when>
+                <!-- 添加更多的运算符判断，根据你的需求 -->
+                <when test="item.operator == 'gt'">toInt64OrZero(data['${item.key}']) > toInt64OrZero('${item.value}') </when>
+                <when test="item.operator == 'lt'">toInt64OrZero(data['${item.key}']) &lt; toInt64OrZero('${item.value}') </when>
+                <when test="item.operator == 'gte'">toInt64OrZero(data['${item.key}']) >= toInt64OrZero('${item.value}') </when>
+                <when test="item.operator == 'lte'">toInt64OrZero(data['${item.key}']) &lt;= toInt64OrZero('${item.value}') </when>
+                <when test="item.operator == 'isNull'">isNull(data['${item.key}'])</when>
+                <when test="item.operator == 'isNotNull'">isNotNull(data['${item.key}'])</when>
+            </choose>
+        </foreach>
+        </where>
+    </select>
+
 </mapper>
